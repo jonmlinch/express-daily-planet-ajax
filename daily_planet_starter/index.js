@@ -44,6 +44,40 @@ app.get('/about', function(req, res) {
     res.render('about');
 });
 
+app.get('/articles/edit/:index', function(req, res){
+    var index = parseInt(req.params.index);
+    if (index < articles.length && index >= 0) {
+        res.render('articles/edit', { article: articles[req.params.index], index: req.params.index });
+    } else {
+        res.send('Error');
+    }
+});
+
+app.put('/articles/:index', function(req, res){
+    console.log('im tring to put it somewhere')
+    var index = parseInt(req.params.index);
+    console.log('index')
+    if (index < articles.length && index >= 0) {
+        articles[req.params.index] = req.body;
+        res.send('success')
+    } else {
+        res.send('Error');
+    }
+});
+
+app.delete('/articles/:index', function(req, res){
+    console.log("I'm trying to delete")
+    var index = parseInt(req.params.index);
+    if(index < articles.length && index >=0) {
+        articles.splice(index, 1);
+        res.send('succes')
+    } else {
+        res.send('error')
+    }
+});
+
+
+
 app.listen(3000, function() {
     console.log("You're listening to the smooth sounds of port 3000 in the morning");
 });
